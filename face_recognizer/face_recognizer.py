@@ -4,13 +4,12 @@ from person import Person
 import os
 import pdb
 from algorithm import *
-import scipy
 
-class face_recognizer:
-    def __init__(self, gallery, algo):
+class FaceRecognizer:
+    def __init__(self, gallery, algo, face_aligner):
         self.people = {}
         self.set_gallery(gallery)
-        self.algo = algo(self.people)
+        self.algo = algo(self.people, face_aligner)
     def set_gallery(self, gallery_folder):
         if gallery_folder[-1] == "/":
             gallery_folder = gallery_folder[:-1]
@@ -35,8 +34,8 @@ if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser()
     parser.add_argument("-g", help="gallery location")
-    parser.add_argument("-a", default="dlib", help="gallery location")
-    parser.add_argument("-i", default="/home/pc204/1.jpg", help="photo to be recognized")
+    parser.add_argument("-a", default="opencv", help="use which package")
+    parser.add_argument("-i", default="~/gallery/zhongyi/1.jpg", help="photo to be recognized")
     args = parser.parse_args()
     print("initializing face recognizer...")
     if args.a == "dlib":

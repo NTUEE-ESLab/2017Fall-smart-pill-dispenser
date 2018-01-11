@@ -1,7 +1,7 @@
 from person import Person
 import sys
 import numpy as np
-import pdb
+from face_aligner import FaceAligner
 
 class Algorithm:
     def __init__(self, gallery):
@@ -38,7 +38,6 @@ class DlibAlgorithm(Algorithm):
         faces_detected = []
         for face_encoding in face_encodings:
             # See if the face is a match for the known face(s)
-            pdb.set_trace()
             gallery = [[name, person.face_encoding] for name, person in self.people.items()]
             matches = face_recognition.compare_faces([i[1] for i in gallery], face_encoding)
 
@@ -50,13 +49,22 @@ class DlibAlgorithm(Algorithm):
         return faces_detected
 
 class OpenCVAlgorithm(Algorithm):
-    def __init__(self, people):
+    def __init__(self, people, face_aligner):
         import cv2
         self.people = people
-        self.model = cv2.createEigenFaceRecognizer()
+        self.model = cv2.face.EigenFaceRecognizer_create()
         self.size = (300, 300)
+        self.face_aligner = face_aligner
+        if len(self.people) > 0:
+            self.train()
+
+    def get_face(self, image):
+        cropped = self.face_aligner.align(image)
+        return cropped
+
+    def train(self):
         X, y = [], []
-        for name, person in self.people.iteritems():
+        for name, person in self.people.items():
             for image_file in person.image_files:
                 image = cv2.imread(image_file, cv2.IMREAD_GRAYSCALE)
                 face = self.get_face(image)
@@ -66,26 +74,6 @@ class OpenCVAlgorithm(Algorithm):
                 y.append(person.num)
         y = np.asarray(y, dtype=np.int32)
         self.model.train(np.asarray(X), np.asarray(y))
-    def get_face(self, image): 
-        import cv2
-        import cv
-        cascade_path = "/home/pc204/opencv-2.4.13/data/haarcascades/haarcascade_frontalface_alt.xml"
-        cascade = cv2.CascadeClassifier(cascade_path)
-        def crop(img):
-            rects = cascade.detectMultiScale(img, scaleFactor=1.3, minNeighbors=4, minSize=(30, 30), flags = cv.CV_HAAR_SCALE_IMAGE)
-            if len(rects) == 0:
-                print("Warning: no face detected")
-                return None
-            x, y, h, w = rects[0]
-            face = img[y:y+h, x:x+w]
-            return face
-        #image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-        face = crop(image)
-        if face is None:
-            return None
-        face = cv2.resize(face, self.size)
-        face = np.asarray(image, dtype=np.uint8)
-        return face
 
     def recognize(self, image):
         face = self.get_face(image)
