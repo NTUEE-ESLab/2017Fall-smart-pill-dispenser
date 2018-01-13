@@ -9,10 +9,11 @@ p.s. In project demo we use MM chocolate beans to represent real pills.
 ## 1. App
 ### Main function
 Caregivers can set patient's personal information and prescription in our mobile app easily through an interactive chatroom.
-![]()
-Login Screen             | Device Menu | Chatroom
-:-----:|:--------:|:--------:
- ![](https://i.imgur.com/WRPUbDb.png )|![](https://i.imgur.com/Tnj0izh.png)|![](https://i.imgur.com/Ex1tjVh.png)
+
+
+|Login Screen                          | Device Menu                        | Chatroom                           |
+|--------------------------------------|------------------------------------|------------------------------------|
+ |![](https://i.imgur.com/WRPUbDb.png )|![](https://i.imgur.com/Tnj0izh.png)|![](https://i.imgur.com/Ex1tjVh.png)|
 
 ### How to use it
 a. Required packages:
