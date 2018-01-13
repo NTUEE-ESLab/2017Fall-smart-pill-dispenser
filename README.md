@@ -106,12 +106,14 @@ With Arduino on, run "i2c-pi-arduino_test.py" in Rpi, and input the numbers of d
 ## 5. Dispenser(s) with SG-90 servo motor(s)
 ### Main function
 Each time when the dispenser is called by Arduino, it uses its servo motor SG-90 to rotate the round disk on the bottom of its cup by shaking it back and forth continuously( [see this demo video](https://drive.google.com/file/d/12Qg_4VxAPz-3_LBOeaAZ1OhXzHrLSbA5jA/view)), make one pill pass the hole of its cup, and thus finish dispensing one pill of drug.
-![all components of the drug dispenser](https://my.ntu.edu.tw/Test/20180113095200.jpg)
+![all components of the drug dispenser](static/components.jpg)
 ### How to use it
 #### 1. Assembly all components in **the picture in Main function section** together and you will see the whole structure like this:
-![assembled dispenser](https://my.ntu.edu.tw/Test/20180113095607.jpg)
-![](https://my.ntu.edu.tw/Test/20180113095652.jpg)
+![assembled dispenser](static/assembled_dispenser.jpg)
+![](static/upper_view.jpg)
 # Results 
+[Introducing our drug dispenser](https://www.youtube.com/watch?v=pqof2ZdDoas)
+
 [The operation of drug dispenser](https://photos.app.goo.gl/EeoVgY1gCzidloPn2)
 
 # References
