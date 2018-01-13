@@ -7,16 +7,88 @@ Facial Recognizing Drug Dispenser is a smart drug dispensing system which allows
 ![](https://my.ntu.edu.tw/Test/20180112173543.jpg)
 p.s. In project demo we use MM chocolate beans to represent real pills.
 ## 1. App
-Caregivers can set patient's personal information and prescription in our Mobile App easily through an interactive chatroom.
+### Main function
+Caregivers can set patient's personal information and prescription in our mobile app easily through an interactive chatroom.
 ![]()
 Login Screen             | Device Menu | Chatroom
-:-------------------------:|:-------------------------:|:-----------
-![](https://i.imgur.com/WRPUbDb.png =225x375)  |![](https://i.imgur.com/Tnj0izh.png =225x375)|![](https://i.imgur.com/Ex1tjVh.png =225x375)
+|:-------------------------:|:-------------------------:|:-----------:|
+| ![](https://i.imgur.com/WRPUbDb.png )  |![](https://i.imgur.com/Tnj0izh.png) |![](https://i.imgur.com/Ex1tjVh.png) |
+
+### How to use it
+a. Required packages:
+  - [Node.js](https://nodejs.org/en/)
+  - [React Native](https://facebook.github.io/react-native/)
+
+b. Usage:
+  - installation:
+```
+cd client/app && npm install
+```
+  - start the simulator (run-ios for iOS or run-android for Android):
+```
+react-native run-{ios,android}
+```
 
 ## 2. Raspberry Pi
+### Main function
 An Raspberry Pi is used to recognize patients(by sending photos to the remote server where facial recognition is performed), fetch user prescription from server and send drug delivery signals to Arduino.
+### How to use it
+#### 1. Node.js Client
+a. Required packages:
+  - [Node.js](https://nodejs.org/en/)
+
+b. Usage:
+  - installation:
+```
+cd pi && npm install
+```
+  - start serving:
+```
+cd pi && node client.js
+```
+#### 2. Python PiCamera Server
+a. Required packages:
+  - python 3.4+
+  - picamera
+  - smbus
+
+b. usage:
+```
+cd pi &&  python3 camera-server.py
+```
 ## 3. Server
+### Main function
 A remote server is responsible for facial recognition and data storage. Our server receives photos taken by a Raspberry Pi, identify who is taking the medicine, then returns the corresponding prescription fetched from database to Raspberry Pi.
+### How to use it
+#### 1. face recognition
+a. Required packages:
+  - Python 3.4+
+  - [OpenCV](https://opencv.org/) 3+ (with python3 bindings) and [opencv_contrib](https://github.com/opencv/opencv_contrib) for [FaceRecognizer](https://docs.opencv.org/3.0-beta/modules/face/doc/facerec/index.html)
+  - [dlib](https://github.com/davisking/dlib) for face alignment
+
+b. Usage:
+
+```
+cd server/face_recognizer && python3 server.py --predictor_path [path to predictor] --gallery_path [path_to_gallery]
+```
+`predictor_path` is the folder where `shape_predictor_68_face_landmarks.dat` is located;
+
+`gallery_path` is where patients' aligned and cropped faces will be stored. You can also put your preprocessed faces here in `[gallery_path]/[patient name]`.
+#### 2. app server
+a. Required packages:
+  - [Node.js](https://nodejs.org/en/)
+  - [MongoDB](https://www.mongodb.com/)
+
+b. Usage:
+  - installation:
+```
+npm install
+```
+  - start serving:
+```
+npm start
+```
+
 ## 4. Arduino
 ### Main function
 The Arduino drives dispenser(s) to dispense drugs with specified number and types after receiving drug-dispensing requests from Rpi. 
