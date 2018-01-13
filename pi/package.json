@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "node-fetch": "^1.7.3",
+    "raspicam": "^0.2.14",
     "rpi-gpio": "^0.9.1",
     "socket.io": "^2.0.4",
     "socket.io-client": "^2.0.4"
