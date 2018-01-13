@@ -3,7 +3,7 @@ Facial Recognizing Drug Dispenser is a smart drug dispensing system which allows
 
 # How we make it
 ## 0. Overview
-[Github link for our project](https://https://github.com/NTUEE-ESLab/2017Fall-smart-pill-dispenser)
+[Web page for our project](https://ntuee-eslab.github.io/2017Fall-smart-pill-dispenser)
 ![](https://my.ntu.edu.tw/Test/20180112173543.jpg)
 p.s. In project demo we use MM chocolate beans to represent real pills.
 ## 1. App
