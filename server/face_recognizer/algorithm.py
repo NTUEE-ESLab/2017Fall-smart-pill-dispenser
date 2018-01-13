@@ -2,6 +2,7 @@ from person import Person
 import sys
 import numpy as np
 from face_aligner import FaceAligner
+import cv2
 
 class Algorithm:
     def __init__(self, gallery):
@@ -53,7 +54,7 @@ class OpenCVAlgorithm(Algorithm):
         import cv2
         self.people = people
         self.model = cv2.face.EigenFaceRecognizer_create()
-        self.size = (300, 300)
+        self.size = (75, 75)
         self.face_aligner = face_aligner
         if len(self.people) > 0:
             self.train()
@@ -66,18 +67,17 @@ class OpenCVAlgorithm(Algorithm):
         X, y = [], []
         for name, person in self.people.items():
             for image_file in person.image_files:
-                image = cv2.imread(image_file, cv2.IMREAD_GRAYSCALE)
-                face = self.get_face(image)
-                if face is None:
-                    continue
+                face = cv2.imread(image_file, cv2.IMREAD_GRAYSCALE)
+                face = cv2.resize(face, self.size, interpolation=cv2.INTER_CUBIC)
                 X.append(face)
                 y.append(person.num)
         y = np.asarray(y, dtype=np.int32)
         self.model.train(np.asarray(X), np.asarray(y))
 
-    def recognize(self, image):
-        face = self.get_face(image)
+    def recognize(self, face):
+        face = cv2.cvtColor(face, cv2.COLOR_BGR2GRAY)
+        face = cv2.resize(face, self.size, interpolation=cv2.INTER_CUBIC)
         [p_label, p_confidence] = self.model.predict(face)
-        for person in self.people:
+        for name, person in self.people.items():
             if person.num == p_label:
                 return person.name

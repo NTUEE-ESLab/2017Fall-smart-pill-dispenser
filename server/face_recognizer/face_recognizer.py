@@ -2,7 +2,6 @@ import numpy as np
 import glob
 from person import Person
 import os
-import pdb
 from algorithm import *
 
 class FaceRecognizer:
