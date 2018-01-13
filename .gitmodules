@@ -1,0 +1,3 @@
+[submodule "server/app_server"]
+	path = server/app_server
+	url = https://github.com/Chung-I/testChatServer.git
