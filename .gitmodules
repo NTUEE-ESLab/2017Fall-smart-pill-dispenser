@@ -1,3 +1,6 @@
 [submodule "server/app_server"]
 	path = server/app_server
 	url = https://github.com/Chung-I/testChatServer.git
+[submodule "client/app"]
+	path = client/app
+	url = https://github.com/Chung-I/pill-dispenser-app.git
