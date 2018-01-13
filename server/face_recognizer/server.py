@@ -14,7 +14,6 @@ from face_aligner import FaceAligner
 from register_handler import RegisterHandler
 from recognize_handler import RecognizeHandler
 from algorithm import OpenCVAlgorithm
-from socket_server import SocketServer
 import base64
 import numpy as np
 import cv2
@@ -22,9 +21,9 @@ import cv2
 parser = argparse.ArgumentParser(description='Server for registering')
 # Path Arguments
 parser.add_argument('--predictor_path', type=str, required=True,
-                            help='location of the dlib facial landmark predictor')
+                            help='location of the dlib facial landmark predictor where shape_predictor_68_face_landmarks.dat is located')
 parser.add_argument('--gallery_path', type=str, required=True,
-                            help='location of the dlib facial landmark predictor')
+                            help='location of the gallery')
 parser.add_argument('--port', type=int, default=8000,
                             help='which port to use')
 args = parser.parse_args()
